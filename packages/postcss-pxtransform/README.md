@@ -1,3 +1,11 @@
+# 修改的部分
+将h5的形式中640改为750，让750的设计稿1:1，方便设计师核对组件
+
+# 复制备份
+"version": "0.0.1-servyou.1",
+
+"version": "3.3.6",
+
 # PostCSS Pxtransform 
 
 [PostCSS](https://github.com/ai/postcss) 单位转换插件，目前已支持小程序端（px 转rpx），H5 端（px 转 rem）及 RN 端。
