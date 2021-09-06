@@ -2,7 +2,7 @@
 1. 当项目的config配置文件中配置了isLib为true时，表示taro-ui会被打包成h5的形式，可直接用于web的项目中
 
 # 复制备份
-"version": "0.0.1-servyou.5",
+"version": "0.0.1-afe.5",
 
 # `@tarojs/webpack-runner`
 

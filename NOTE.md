@@ -9,3 +9,7 @@
 
 # publish
 暂时先手动改package的name和version，执行完publish后再撤回，不然test命令执行会失败
+
+# 共建的方式
+1. github上持续merge taro的源码
+2. 公司内网publish时加--tag
