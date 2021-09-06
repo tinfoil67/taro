@@ -12,6 +12,7 @@ import {
 const PLUGIN_NAME = 'MainPlugin'
 
 interface IMainPluginOptions {
+  isLib: boolean,
   sourceDir: string,
   outputDir: string,
   routerConfig: any,
@@ -31,7 +32,7 @@ export default class MainPlugin {
   pagesConfigList = new Map<string, string>()
   pages = new Set<{name: string, path: string}>()
 
-  constructor (options = {}) {
+  constructor (options = { isLib: false }) {
     this.options = defaults(options || {}, {
       sourceDir: '',
       outputDir: '',
@@ -112,9 +113,11 @@ export default class MainPlugin {
   }
 
   run () {
-    this.getAppConfig()
-    this.getPages()
-    this.getPagesConfigList()
+    if (!this.options.isLib) {
+      this.getAppConfig()
+      this.getPages()
+      this.getPagesConfigList()
+    }
   }
 
   getPages () {

@@ -31,6 +31,15 @@ const buildProd = async (appPath: string, config: BuildConfig): Promise<void> =>
     config.onWebpackChainReady(webpackChain)
   }
   const webpackConfig = webpackChain.toConfig()
+
+  // isLib表示打包的是h5形态的ui组件库
+  if (config.isLib) {
+    const tempEntry = Object.assign({}, config.entry)
+    delete tempEntry.app
+    webpackConfig.entry = tempEntry
+    webpackConfig.output.libraryTarget = 'commonjs2'
+  }
+
   const compiler = webpack(webpackConfig)
   const onBuildFinish = config.onBuildFinish
   compiler.hooks.emit.tapAsync('taroBuildDone', async (compilation, callback) => {
@@ -128,6 +137,15 @@ const buildDev = async (appPath: string, config: BuildConfig): Promise<any> => {
   })
 
   const webpackConfig = webpackChain.toConfig()
+
+  // isLib表示打包的是h5形态的ui组件库
+  if (config.isLib) {
+    const tempEntry = Object.assign({}, config.entry)
+    delete tempEntry.app
+    webpackConfig.entry = tempEntry
+    webpackConfig.output.libraryTarget = 'commonjs2'
+  }
+
   WebpackDevServer.addDevServerEntrypoints(webpackConfig, devServerOptions)
   const compiler = webpack(webpackConfig) as Compiler
   bindDevLogger(devUrl, compiler)

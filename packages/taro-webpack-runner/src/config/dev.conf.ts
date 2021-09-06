@@ -67,6 +67,7 @@ export default function (appPath: string, config: Partial<BuildConfig>): any {
   const isMultiRouterMode = get(router, 'mode') === 'multi'
 
   plugin.mainPlugin = getMainPlugin({
+    isLib: config.isLib,
     framework: config.framework,
     entryFileName,
     sourceDir,
@@ -91,20 +92,23 @@ export default function (appPath: string, config: Partial<BuildConfig>): any {
     plugin.copyWebpackPlugin = getCopyWebpackPlugin({ copy, appPath })
   }
 
-  if (isMultiRouterMode) {
-    merge(plugin, mapValues(entry, (filePath, entryName) => {
-      return getHtmlWebpackPlugin([{
-        filename: `${entryName}.html`,
-        template: path.join(appPath, sourceRoot, 'index.html'),
-        chunks: [entryName]
+  if (!config.isLib) {
+    if (isMultiRouterMode) {
+      merge(plugin, mapValues(entry, (filePath, entryName) => {
+        return getHtmlWebpackPlugin([{
+          filename: `${entryName}.html`,
+          template: path.join(appPath, sourceRoot, 'index.html'),
+          chunks: [entryName]
+        }])
+      }))
+    } else {
+      plugin.htmlWebpackPlugin = getHtmlWebpackPlugin([{
+        filename: 'index.html',
+        template: path.join(appPath, sourceRoot, 'index.html')
       }])
-    }))
-  } else {
-    plugin.htmlWebpackPlugin = getHtmlWebpackPlugin([{
-      filename: 'index.html',
-      template: path.join(appPath, sourceRoot, 'index.html')
-    }])
+    }
   }
+
   plugin.definePlugin = getDefinePlugin([processEnvOption(env), defineConstants])
 
   if (config.framework === FRAMEWORK_MAP.REACT && config.devServer?.hot !== false) {
