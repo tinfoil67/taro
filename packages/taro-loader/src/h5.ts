@@ -6,13 +6,17 @@ import { frameworkMeta } from './utils'
 
 function genResource (path: string, pages: Map<string, string>, loaderContext: webpack.loader.LoaderContext) {
   const stringify = (s: string): string => stringifyRequest(loaderContext, s)
+  let t:string = pages.get(path)!
+  if (t.endsWith('.config')) {
+    t = t.replace('.config', '.tsx')
+  }
   return `
   Object.assign({
       path: '${path}',
       load: function() {
           return import(${stringify(join(loaderContext.context, path))})
       }
-  }, require(${stringify(pages.get(path)!)}).default || {}),
+  }, require(${stringify(t!)}).default || {}),
 `
 }
 

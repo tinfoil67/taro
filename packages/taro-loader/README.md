@@ -25,6 +25,14 @@
 * `framework`: 框架类型，`'react' | 'nerv' | 'vue' | 'vue3'`
 * `name`: 页面路径
 
+# 调整的部分
+```js
+let t:string = pages.get(path)!
+if (t.endsWith('.config')) {
+  t = t.replace('.config', '.tsx')
+}
+```
+
 ## h5
 
 H5 专用。在小程序入口文件调用 `@tarojs/router` 的 `createRouter` 方法创建兼容小程序生命周期和路由系统的应用。
