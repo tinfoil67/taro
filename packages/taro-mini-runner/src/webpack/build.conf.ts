@@ -52,7 +52,7 @@ export default (appPath: string, mode, config: Partial<IBuildConfig>): any => {
     sourceMapType,
     debugReact = false,
     baseLevel = 16,
-    framework = 'nerv',
+    framework = 'react',
     prerender,
     minifyXML = {},
 

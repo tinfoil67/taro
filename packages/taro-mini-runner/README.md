@@ -1,3 +1,15 @@
+
+# 修改的部分
+```js
+config.entry = {
+  app: [
+    appPath + '/src/app.tsx'
+  ]
+}
+
+framework = 'react',
+```
+
 # `@tarojs/mini-runner`
 
 暴露给 `@tarojs/cli` 的小程序 Webpack 启动器。

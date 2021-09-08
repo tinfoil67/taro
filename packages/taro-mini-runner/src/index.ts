@@ -18,6 +18,13 @@ const customizeChain = async (chain, modifyWebpackChainFunc: Func, customizeFunc
 }
 
 export default async function build (appPath: string, config: IBuildConfig): Promise<webpack.Stats> {
+  // 强制指定入口
+  config.entry = {
+    app: [
+      appPath + '/src/app.tsx'
+    ]
+  }
+
   const mode = config.mode
 
   /** process config.sass options */
