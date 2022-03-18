@@ -1,6 +1,6 @@
 {
   "name": "@tarojs/components",
-  "version": "3.3.7",
+  "version": "0.0.1-afe.2",
   "description": "",
   "main:h5": "src/index.js",
   "main": "dist/index.js",
@@ -48,6 +48,9 @@
     "weui": "^1.1.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
     "@stencil/sass": "1.4.1",
     "jquery": "^3.4.1",
     "karmatic": "^2.1.0",
