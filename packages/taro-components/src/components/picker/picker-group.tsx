@@ -2,10 +2,13 @@
 import { Component, h, ComponentInterface, Prop, Host, State, Listen } from '@stencil/core'
 
 import {
-  TOP,
-  LINE_HEIGHT,
-  MASK_HEIGHT
+  TOP as TOP_ORI,
+  LINE_HEIGHT as LINE_HEIGHT_ORI,
+  MASK_HEIGHT as MASK_HEIGHT_ORI,
 } from './constant'
+let TOP = TOP_ORI
+let LINE_HEIGHT = LINE_HEIGHT_ORI
+let MASK_HEIGHT = MASK_HEIGHT_ORI
 
 @Component({
   tag: 'taro-picker-group'
@@ -25,6 +28,13 @@ export class TaroPickerGroup implements ComponentInterface {
   @State() hadMove: boolean
   @State() touchEnd: boolean
   @State() isMove: boolean
+
+  componentWillLoad () {
+    const scale = parseFloat(window.document.documentElement.style.fontSize) / 40
+    LINE_HEIGHT = LINE_HEIGHT_ORI * scale
+    TOP = TOP_ORI * scale
+    MASK_HEIGHT = MASK_HEIGHT_ORI * scale
+  }
 
   getPosition () {
     const transition = this.touchEnd ? 0.3 : 0

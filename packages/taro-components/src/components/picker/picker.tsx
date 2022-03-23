@@ -13,9 +13,11 @@ import {
   formatValue
 } from './utils'
 import {
-  TOP,
-  LINE_HEIGHT
+  TOP as TOP_ORI,
+  LINE_HEIGHT as LINE_HEIGHT_ORI,
 } from './constant'
+let TOP = TOP_ORI
+let LINE_HEIGHT = LINE_HEIGHT_ORI
 
 export type Mode = 'selector' | 'multiSelector' | 'time' | 'date'
 export type Fields = 'day' | 'month' | 'year'
@@ -69,6 +71,9 @@ export class Picker implements ComponentInterface {
 
   componentWillLoad () {
     this.isWillLoadCalled = true
+    const scale = parseFloat(window.document.documentElement.style.fontSize) / 40
+    LINE_HEIGHT = LINE_HEIGHT_ORI * scale
+    TOP = TOP_ORI * scale
     this.handleProps()
   }
 
@@ -214,7 +219,7 @@ export class Picker implements ComponentInterface {
   handleChange = () => {
     this.hidePicker()
 
-    this.index = this.height.map(h => (TOP - h) / LINE_HEIGHT)
+    this.index = this.height.map(h => Math.round((TOP - h) / LINE_HEIGHT))
 
     let value: PickerValue = this.index.length && this.mode !== 'selector'
       ? this.index
