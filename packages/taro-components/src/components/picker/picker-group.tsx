@@ -15,6 +15,7 @@ let MASK_HEIGHT = MASK_HEIGHT_ORI
 })
 export class TaroPickerGroup implements ComponentInterface {
   @Prop() mode: 'time' | 'date'
+  @Prop() scale: number = 1
   @Prop() range: any[] = []
   @Prop() rangeKey: string
   @Prop() height: number
@@ -30,7 +31,7 @@ export class TaroPickerGroup implements ComponentInterface {
   @State() isMove: boolean
 
   componentWillLoad () {
-    const scale = parseFloat(window.document.documentElement.style.fontSize) / 40
+    const { scale } = this
     LINE_HEIGHT = LINE_HEIGHT_ORI * scale
     TOP = TOP_ORI * scale
     MASK_HEIGHT = MASK_HEIGHT_ORI * scale

@@ -42,6 +42,7 @@ export class Picker implements ComponentInterface {
   @Element() el: HTMLElement
 
   @Prop() mode: Mode = 'selector'
+  @Prop() scale: number = 1
   @Prop() disabled = false
   @Prop() range: any[] = []
   @Prop() rangeKey: string
@@ -71,7 +72,7 @@ export class Picker implements ComponentInterface {
 
   componentWillLoad () {
     this.isWillLoadCalled = true
-    const scale = parseFloat(window.document.documentElement.style.fontSize) / 40
+    const { scale } = this
     LINE_HEIGHT = LINE_HEIGHT_ORI * scale
     TOP = TOP_ORI * scale
     this.handleProps()
@@ -355,6 +356,7 @@ export class Picker implements ComponentInterface {
   getSelector = () => {
     return (
       <taro-picker-group
+        scale={this.scale}
         range={this.range}
         rangeKey={this.rangeKey}
         height={this.height[0]}
@@ -369,6 +371,7 @@ export class Picker implements ComponentInterface {
     return this.range.map((range, index) => {
       return (
         <taro-picker-group
+          scale={this.scale}
           range={range}
           rangeKey={this.rangeKey}
           height={this.height[index]}
@@ -386,6 +389,7 @@ export class Picker implements ComponentInterface {
     const minRange = minutesRange.slice()
     return [
       <taro-picker-group
+        scale={this.scale}
         mode='time'
         range={hourRange}
         height={this.height[0]}
@@ -393,6 +397,7 @@ export class Picker implements ComponentInterface {
         columnId='0'
       />,
       <taro-picker-group
+        scale={this.scale}
         mode='time'
         range={minRange}
         height={this.height[1]}
@@ -418,6 +423,7 @@ export class Picker implements ComponentInterface {
 
     const renderView = [
       <taro-picker-group
+        scale={this.scale}
         mode='date'
         range={yearRange}
         height={height[0]}
@@ -429,6 +435,7 @@ export class Picker implements ComponentInterface {
     if (fields === 'month' || fields === 'day') {
       renderView.push(
         <taro-picker-group
+          scale={this.scale}
           mode='date'
           range={monthRange}
           height={height[1]}
@@ -441,6 +448,7 @@ export class Picker implements ComponentInterface {
     if (fields === 'day') {
       renderView.push(
         <taro-picker-group
+          scale={this.scale}
           mode='date'
           range={dayRange}
           height={height[2]}
