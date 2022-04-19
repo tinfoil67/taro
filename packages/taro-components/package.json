@@ -1,6 +1,6 @@
 {
   "name": "@tarojs/components",
-  "version": "0.0.1-afe.28",
+  "version": "0.0.1-afe.31",
   "description": "",
   "main:h5": "src/index.js",
   "main": "dist/index.js",
