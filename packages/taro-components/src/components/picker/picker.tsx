@@ -133,9 +133,20 @@ export class Picker implements ComponentInterface {
     } else if (mode === 'date') {
       const value = this.value as string
 
-      const _value = verifyDate(value) || new Date(new Date().setHours(0, 0, 0, 0)) // 没传值或值的合法性错误默认今天时间
+      let _value = verifyDate(value) // || new Date(new Date().setHours(0, 0, 0, 0)) // 没传值或值的合法性错误默认今天时间
       const _start = verifyDate(start) || new Date('1970/01/01')
       const _end = verifyDate(end) || new Date('2999/01/01')
+
+      if (!_value) {
+        const now = new Date(new Date().setHours(0, 0, 0, 0))
+        if (start && now < _start) {
+          _value = _start
+        } else if (end && now > _end) {
+          _value = _end
+        } else {
+          _value = now
+        }
+      }
 
       // 时间区间有效性
       if (_value >= _start && _value <= _end) {
