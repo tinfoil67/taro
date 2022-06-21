@@ -71,7 +71,10 @@ export function compareTime (t1: string, t2: string) {
  */
 export function verifyDate (dateStr: string) {
   if (!dateStr) return false
-  const date = new Date(dateStr)
+  let date = new Date(dateStr)
+  if (!dateStr.includes(':')) {
+    date = new Date(date.setHours(0, 0, 0, 0))
+  }
   return isNaN(date.getMonth()) ? false : date
 }
 
