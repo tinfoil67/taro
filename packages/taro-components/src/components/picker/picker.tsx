@@ -133,9 +133,9 @@ export class Picker implements ComponentInterface {
     } else if (mode === 'date') {
       const value = this.value as string
 
-      let _value = verifyDate(value) // || new Date(new Date().setHours(0, 0, 0, 0)) // 没传值或值的合法性错误默认今天时间
+      let _value = verifyDate(value) // || new Date(new Date().setHours(0, 0, 0, 0))
       const _start = verifyDate(start) || new Date('1970/01/01')
-      const _end = verifyDate(end) || new Date('2999/01/01')
+      const _end = verifyDate(end) || new Date('2060/01/01')
 
       if (!_value) {
         const now = new Date(new Date().setHours(0, 0, 0, 0))
