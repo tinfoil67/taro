@@ -174,9 +174,8 @@ export class Input implements ComponentInterface {
     this.onInputExcuted = false
     e.stopPropagation()
 
-    this.onKeyDown.emit({ value })
-
-    e.keyCode === 13 && this.onConfirm.emit({ value })
+    this.onKeyDown.emit(e)
+    e.code.toLowerCase() === 'enter' && this.onConfirm.emit({ value })
   }
 
   handleComposition = (e) => {

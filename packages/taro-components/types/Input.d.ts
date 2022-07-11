@@ -151,6 +151,20 @@ interface InputProps extends StandardProps, FormItemProps {
    */
   onConfirm?: CommonEventFunction<InputProps.inputValueEventDetail>
 
+  /** 输入框值变化时触发
+   *
+   * event.detail = {value: value}
+   * @supported weapp, h5, rn
+   */
+   onChange?: CommonEventFunction<InputProps.inputValueEventDetail>
+
+  /** 键盘按下时触发
+   *
+   * event.detail = {key: key, keyCode: keyCode}
+   * @supported weapp, h5, rn
+   */
+   onKeyDown?: CommonEventFunction<InputProps.inputValueEventDetail>
+
   /** 键盘高度发生变化的时候触发此事件
    *
    * event.detail = {height: height, duration: duration}
