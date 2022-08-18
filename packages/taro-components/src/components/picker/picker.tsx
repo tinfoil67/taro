@@ -322,7 +322,7 @@ export class Picker implements ComponentInterface {
   handleColumnChange = (height: number, columnId: string) => {
     this.onColumnChange.emit({
       column: Number(columnId),
-      value: (TOP - height) / LINE_HEIGHT
+      value: Math.round((TOP - height) / LINE_HEIGHT)
     })
   }
 
