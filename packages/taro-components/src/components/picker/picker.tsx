@@ -46,7 +46,7 @@ export class Picker implements ComponentInterface {
   @Prop() disabled = false
   @Prop() range: any[] = []
   @Prop() rangeKey: string
-  @Prop() value: number | number[] | string
+  @Prop() value: number | number[] | string = ''
   @Prop() start = ''
   @Prop() end = ''
   @Prop() fields: Fields = 'day'

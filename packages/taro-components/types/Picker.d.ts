@@ -69,7 +69,7 @@ interface PickerSelectorProps extends PickerStandardProps {
    * value 改变时触发 change 事件，event.detail = {value}
    * @supported weapp, h5, rn
    */
-  onChange: CommonEventFunction<PickerSelectorProps.ChangeEventDetail>
+  onChange?: CommonEventFunction<PickerSelectorProps.ChangeEventDetail>
 }
 
 declare namespace PickerSelectorProps {
@@ -99,12 +99,12 @@ interface PickerMultiSelectorProps extends PickerStandardProps {
    * @supported weapp, h5, rn
    * @default []
    */
-  value: number[] | string[] | Record<string, any>[]
+  value?: number[] | string[] | Record<string, any>[]
   /**
    * 当 value 改变时触发 change 事件，event.detail = {value}
    * @supported weapp, h5, rn
    */
-  onChange: CommonEventFunction<PickerMultiSelectorProps.ChangeEventDetail>
+  onChange?: CommonEventFunction<PickerMultiSelectorProps.ChangeEventDetail>
   /**
    * 列改变时触发
    * @supported weapp, h5, rn
@@ -133,7 +133,7 @@ interface PickerTimeProps extends PickerStandardProps {
    * value 的值表示选择了 range 中的第几个（下标从 0 开始）
    * @supported weapp, h5, rn
    */
-  value: string
+  value?: string
   /**
    * 仅当 mode = time|date 时有效，表示有效时间范围的开始，字符串格式为"hh:mm"
    * @supported weapp, h5, rn
@@ -148,7 +148,7 @@ interface PickerTimeProps extends PickerStandardProps {
    * value 改变时触发 change 事件，event.detail = {value}
    * @supported weapp, h5, rn
    */
-  onChange: CommonEventFunction<PickerTimeProps.ChangeEventDetail>
+  onChange?: CommonEventFunction<PickerTimeProps.ChangeEventDetail>
 }
 
 declare namespace PickerTimeProps {
@@ -167,7 +167,7 @@ interface PickerDateProps extends PickerStandardProps {
    * @supported weapp, h5, rn
    * @default 0
    */
-  value: string
+  value?: string
   /**
    * 仅当 mode = time|date 时有效，表示有效时间范围的开始，字符串格式为"hh:mm"
    * @supported weapp, h5, rn
@@ -188,7 +188,7 @@ interface PickerDateProps extends PickerStandardProps {
    * value 改变时触发 change 事件，event.detail = {value}
    * @supported weapp, h5, rn
    */
-  onChange: CommonEventFunction<PickerDateProps.ChangeEventDetail>
+  onChange?: CommonEventFunction<PickerDateProps.ChangeEventDetail>
 }
 
 declare namespace PickerDateProps {
@@ -215,7 +215,7 @@ interface PickerRegionProps extends PickerStandardProps {
    * @supported weapp, h5, rn
    * @default []
    */
-  value: string[]
+  value?: string[]
   /**
    * 可为每一列的顶部添加一个自定义的项
    * @supported weapp, h5, rn
@@ -230,7 +230,7 @@ interface PickerRegionProps extends PickerStandardProps {
    * value 改变时触发 change 事件，event.detail = {value, code, postcode}，其中字段 code 是统计用区划代码，postcode 是邮政编码
    * @supported weapp, h5, rn
    */
-  onChange: CommonEventFunction<PickerRegionProps.ChangeEventDetail>
+  onChange?: CommonEventFunction<PickerRegionProps.ChangeEventDetail>
 }
 
 declare namespace PickerRegionProps {
