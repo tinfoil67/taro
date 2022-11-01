@@ -22,6 +22,12 @@ interface PickerStandardProps extends StandardProps, FormItemProps {
    */
   scale?: number
   /**
+   * 是否展示浮层
+   * @default false
+   * @supported h5
+   */
+  visible?: boolean
+  /**
    * 取消选择或点遮罩层收起 picker 时触发
    * @supported weapp, h5, rn
    */

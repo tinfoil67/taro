@@ -51,6 +51,7 @@ export class Picker implements ComponentInterface {
   @Prop() end = ''
   @Prop() fields: Fields = 'day'
   @Prop() name = ''
+  @Prop() visible: boolean = false
 
   @State() pickerValue: PickerValue = []
   @State() height: number[] = []
@@ -93,6 +94,16 @@ export class Picker implements ComponentInterface {
   disconnectedCallback () {
     if (this.overlay) {
       this.overlay.parentNode?.removeChild(this.overlay)
+    }
+  }
+
+  @Watch('visible')
+  onVisibleChange(newVisible) {
+    if (newVisible) {
+      this.height = this.getHeightByIndex()
+      this.hidden = false
+    } else {
+      this.hidePicker()
     }
   }
 
