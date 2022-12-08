@@ -1,26 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Component, h, ComponentInterface, Prop, Host, State, Listen } from '@stencil/core'
 
-import {
-  TOP as TOP_ORI,
-  LINE_HEIGHT as LINE_HEIGHT_ORI,
-  MASK_HEIGHT as MASK_HEIGHT_ORI,
-} from './constant'
-let TOP = TOP_ORI
-let LINE_HEIGHT = LINE_HEIGHT_ORI
-let MASK_HEIGHT = MASK_HEIGHT_ORI
+import { LINE_HEIGHT as LINE_HEIGHT_ORI } from './constant'
 
 @Component({
   tag: 'taro-picker-group'
 })
 export class TaroPickerGroup implements ComponentInterface {
+  private mask: HTMLDivElement
   @Prop() mode: 'time' | 'date'
   @Prop() scale: number = 1
+  @Prop() scrollRows: number = 7
   @Prop() range: any[] = []
   @Prop() rangeKey: string
   @Prop() height: number
   @Prop() columnId: string
-  @Prop() updateHeight: (height: number, columnId: string, needRevise?: boolean) => void
+  @Prop() updateHeight: (height: number, columnId: string, needRevise?: boolean, needChange?: boolean) => void
   @Prop() onColumnChange: (height: number, columnId: string) => void
   @Prop() updateDay: (value: number, fields: number) => void
 
@@ -29,13 +24,9 @@ export class TaroPickerGroup implements ComponentInterface {
   @State() hadMove: boolean
   @State() touchEnd: boolean
   @State() isMove: boolean
-
-  componentWillLoad () {
-    const { scale } = this
-    LINE_HEIGHT = LINE_HEIGHT_ORI * scale
-    TOP = TOP_ORI * scale
-    MASK_HEIGHT = MASK_HEIGHT_ORI * scale
-  }
+  @State() LINE_HEIGHT = LINE_HEIGHT_ORI * this.scale
+  @State() TOP = this.LINE_HEIGHT * (this.scrollRows - 1) / 2
+  @State() MASK_HEIGHT = this.LINE_HEIGHT * this.scrollRows
 
   getPosition () {
     const transition = this.touchEnd ? 0.3 : 0
@@ -50,7 +41,7 @@ export class TaroPickerGroup implements ComponentInterface {
   }
 
   formulaUnlimitedScroll (range: number, absoluteHeight: number, direction: 'up' | 'down') {
-    const { height, updateHeight, columnId } = this
+    const { height, updateHeight, columnId, LINE_HEIGHT, TOP } = this
     const factor = direction === 'up' ? 1 : -1
 
     this.touchEnd = false
@@ -75,6 +66,7 @@ export class TaroPickerGroup implements ComponentInterface {
   }
 
   handleMoving (clientY: number) {
+    const { LINE_HEIGHT, TOP } = this
     const y = clientY
     const deltaY = y - this.preY
     this.preY = y
@@ -114,7 +106,10 @@ export class TaroPickerGroup implements ComponentInterface {
       height,
       updateHeight,
       onColumnChange,
-      columnId
+      columnId,
+      LINE_HEIGHT,
+      MASK_HEIGHT,
+      TOP,
     } = this
     const max = 0
     const min = -LINE_HEIGHT * (range.length - 1)
@@ -127,10 +122,8 @@ export class TaroPickerGroup implements ComponentInterface {
 
     if (!this.hadMove) {
       /** 点击 */
-      // 屏幕高度
-      const windowHeight = window.innerHeight
       // picker__mask 垂直方向距离屏幕顶部的高度
-      const relativeY = windowHeight - MASK_HEIGHT / 2
+      const relativeY = this.mask.getBoundingClientRect().top + MASK_HEIGHT / 2
 
       absoluteHeight = height - TOP - (endY - relativeY)
 
@@ -191,7 +184,7 @@ export class TaroPickerGroup implements ComponentInterface {
       }
     }
 
-    updateHeight(relativeHeight, columnId, mode === 'time')
+    updateHeight(relativeHeight, columnId, mode === 'time', true)
     onColumnChange && onColumnChange(relativeHeight, columnId)
   }
 
@@ -247,7 +240,13 @@ export class TaroPickerGroup implements ComponentInterface {
 
     return (
       <Host class='weui-picker__group'>
-        <div class='weui-picker__mask' />
+        <div
+          class='weui-picker__mask'
+          ref={dom => {
+            if (!dom) return
+            this.mask = dom
+          }}
+        />
         <div class='weui-picker__indicator' />
         <div class='weui-picker__content' style={this.getPosition()}>
           {pickerItem}
