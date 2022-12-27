@@ -73,6 +73,13 @@ export class Picker implements ComponentInterface {
     })
   }
 
+  @Watch('scale')
+  @Watch('scrollRows')
+  watchScaleAndScrollRows () {
+    this.LINE_HEIGHT = LINE_HEIGHT_ORI * this.scale
+    this.TOP = this.LINE_HEIGHT * (this.scrollRows - 1) / 2
+  }
+
   @Watch('mode')
   @Watch('value')
   @Watch('range')
