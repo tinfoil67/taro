@@ -68,6 +68,10 @@ export class Picker implements ComponentInterface {
   }) onColumnChange: EventEmitter
 
   @Event({
+    eventName: 'visiblechange'
+  }) onVisibleChange: EventEmitter
+
+  @Event({
     eventName: 'cancel'
   }) onCancel: EventEmitter
 
@@ -98,7 +102,7 @@ export class Picker implements ComponentInterface {
   }
 
   @Watch('visible')
-  onVisibleChange(newVisible) {
+  onVisibleStateChange(newVisible) {
     if (newVisible) {
       this.height = this.getHeightByIndex()
       this.hidden = false
@@ -216,6 +220,7 @@ export class Picker implements ComponentInterface {
 
     this.height = this.getHeightByIndex()
     this.hidden = false
+    this.onVisibleChange.emit(true)
   }
 
   getHeightByIndex = () => {
@@ -288,12 +293,14 @@ export class Picker implements ComponentInterface {
     this.onChange.emit({
       value
     })
+    this.onVisibleChange.emit(false)
   }
 
   // 点击取消按钮或蒙层
   handleCancel = () => {
     this.hidePicker()
     this.onCancel.emit()
+    this.onVisibleChange.emit(false)
   }
 
   updateHeight = (height: number, columnId: string, needRevise = false) => {

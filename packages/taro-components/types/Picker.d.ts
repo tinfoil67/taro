@@ -28,6 +28,11 @@ interface PickerStandardProps extends StandardProps, FormItemProps {
    */
   visible?: boolean
   /**
+   * 浮层展示状态改变时触发 visible change 事件
+   * @supported weapp, h5, rn
+   */
+  onVisibleChange?: CommonEventFunction<boolean>
+  /**
    * 取消选择或点遮罩层收起 picker 时触发
    * @supported weapp, h5, rn
    */
